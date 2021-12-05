@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link href="/index.css" rel="stylesheet">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -14,6 +15,33 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-    </body>
+    <div class="centerwrapper glass">
+    {% block connected %}
+        <a href="{{ path('character_index') }}">Character list</a>
+        -
+        <a href="{{ path('classe_index') }}">Classe list</a>
+        -
+        <a href="{{ path('race_index') }}">Race list</a>
+        -
+        <a href="{{ path('item_index') }}">Item list</a>
+        -
+        <a href="{{ path('item_type_index') }}">Item type list</a>
+        -
+        <a href="{{ path('skill_index') }}">Skill list</a>
+        -
+        <a href="{{ path('statistique_index') }}">Statistique list</a>    
+    {% endblock %}
+
+    {% block body %}
+    {% endblock %}
+
+    {% block connected_bottom %}
+    <div>
+       <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
+    {% endblock %}
+    </div>
+
+</body>
+        
 </html>
