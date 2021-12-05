@@ -15,6 +15,14 @@
                 <th>Name</th>
                 <td>{{ classe.name }}</td>
             </tr>
+			<tr>
+                <th>Skills</th>
+                <td>
+                {% for skill in classe.skillClasses %}
+                    {{ skill }}
+                {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

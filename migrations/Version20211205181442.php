@@ -69,7 +69,12 @@ final class Version20211205181442 extends AbstractMigration
         $this->addSql('ALTER TABLE race_skill ADD CONSTRAINT FK_B803C5666E59D40D FOREIGN KEY (race_id) REFERENCES race (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE race_skill ADD CONSTRAINT FK_B803C5665585C142 FOREIGN KEY (skill_id) REFERENCES skill (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skill ADD CONSTRAINT FK_5E3DE47776A81463 FOREIGN KEY (statistique_id) REFERENCES statistique (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-    }
+		$this->addSql('CREATE OR REPLACE FUNCTION public.min_age() RETURNS trigger LANGUAGE "plpgsql" COST 100 VOLATILE NOT LEAKPROOF AS $BODY$ BEGIN if EXTRACT("year" FROM AGE(NOW(), NEW.birthdate)) < 13 then RAISE EXCEPTION "Vous devez avoir au moins 13 ans."; end if; return NEW; END; $BODY$;');
+		$this->addSql('CREATE TRIGGER user_min_age BEFORE INSERT OR UPDATE ON public."user" FOR EACH ROW EXECUTE FUNCTION public.min_age();');
+		$this->addSql('CREATE OR REPLACE FUNCTION public.max_lines() RETURNS trigger LANGUAGE "plpgsql" COST 100 VOLATILE NOT LEAKPROOF AS $BODY$ BEGIN IF (select count(*) from public."character") = 4 then RAISE EXCEPTION "Vous ne pouvez pas ajoutez plus de 4 personnages."; END IF; RETURN NEW; END; $BODY$;');
+		$this->addSql('CREATE TRIGGER character_max_lines BEFORE INSERT ON public."character" FOR EACH ROW EXECUTE FUNCTION public.max_lines();');
+		$this->addSql('CREATE OR REPLACE FUNCTION public.calcul_combat_power(calc_char_id integer) RETURNS integer LANGUAGE "plpgsql" COST 100 VOLATILE PARALLEL UNSAFE AS $BODY$ declare total_power integer := 0; race integer; classe integer; skills integer[]; skill integer; begin race := (select race_id from public."character" where id = calc_char_id); classe := (select classe_id from public."character" where id = calc_char_id); skills := array(select skill_id from public."character_skill" where character_id = calc_char_id); skills := skills || array(select skill_id from public."race_skill" where race_id = race); skills := skills || array(select skill_id from public."classe_skill" where classe_id = classe); if count(skills) > 0 then foreach skill in array skills loop total_power := total_power + (select round(value) from public."statistique" as st inner join public."skill" as sk on st.id = sk.statistique_id where sk.id = skill); end loop; end if; return total_power; end; $BODY$;');
+	}
 
     public function down(Schema $schema): void
     {
