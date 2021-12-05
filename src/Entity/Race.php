@@ -25,13 +25,18 @@ class Race
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=SkillRace::class, mappedBy="race")
+     * @ORM\ManyToMany(targetEntity=Skill::class)
      */
     private $skillRaces;
 
     public function __construct()
     {
         $this->skillRaces = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -52,14 +57,14 @@ class Race
     }
 
     /**
-     * @return Collection|SkillRace[]
+     * @return Collection|Skill[]
      */
     public function getSkillRaces(): Collection
     {
         return $this->skillRaces;
     }
 
-    public function addSkillRace(SkillRace $skillRace): self
+    public function addSkillRace(Skill $skillRace): self
     {
         if (!$this->skillRaces->contains($skillRace)) {
             $this->skillRaces[] = $skillRace;
@@ -69,7 +74,7 @@ class Race
         return $this;
     }
 
-    public function removeSkillRace(SkillRace $skillRace): self
+    public function removeSkillRace(Skill $skillRace): self
     {
         if ($this->skillRaces->removeElement($skillRace)) {
             // set the owning side to null (unless already changed)
