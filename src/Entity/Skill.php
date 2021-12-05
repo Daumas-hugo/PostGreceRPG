@@ -28,10 +28,15 @@ class Skill
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=statistique::class)
+     * @ORM\ManyToOne(targetEntity=Statistique::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $statistique;
+
+    public function __toString()
+    {
+        return $this->name . ' ' . $this->statistique;
+    }
 
     public function getId(): ?int
     {
