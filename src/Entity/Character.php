@@ -53,21 +53,22 @@ class Character
     private $classe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Inventory::class, mappedBy="character")
-     */
-    private $inventory;
-
-    /**
-     * @ORM\OneToMany(targetEntity=SkillCharacter::class, mappedBy="character")
+     * @ORM\ManyToMany(targetEntity=Skill::class)
      */
     private $skillCharacters;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Item::class)
+     */
+    private $itemCharacters;
 
     public function __construct()
     {
         $this->inventory = new ArrayCollection();
         $this->skillCharacters = new ArrayCollection();
+        $this->itemCharacters = new ArrayCollection();
     }
-
+     
     public function getId(): ?int
     {
         return $this->id;
@@ -146,44 +147,14 @@ class Character
     }
 
     /**
-     * @return Collection|Inventory[]
-     */
-    public function getInventory(): Collection
-    {
-        return $this->inventory;
-    }
-
-    public function addInventory(Inventory $inventory): self
-    {
-        if (!$this->inventory->contains($inventory)) {
-            $this->inventory[] = $inventory;
-            $inventory->setCharacter($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInventory(Inventory $inventory): self
-    {
-        if ($this->inventory->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getCharacter() === $this) {
-                $inventory->setCharacter(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|SkillCharacter[]
+     * @return Collection|Skill[]
      */
     public function getSkillCharacters(): Collection
     {
         return $this->skillCharacters;
     }
 
-    public function addSkillCharacter(SkillCharacter $skillCharacter): self
+    public function addSkillCharacter(Skill $skillCharacter): self
     {
         if (!$this->skillCharacters->contains($skillCharacter)) {
             $this->skillCharacters[] = $skillCharacter;
@@ -193,7 +164,7 @@ class Character
         return $this;
     }
 
-    public function removeSkillCharacter(SkillCharacter $skillCharacter): self
+    public function removeSkillCharacter(Skill $skillCharacter): self
     {
         if ($this->skillCharacters->removeElement($skillCharacter)) {
             // set the owning side to null (unless already changed)
@@ -201,6 +172,30 @@ class Character
                 $skillCharacter->setCharacter(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItemCharacters(): Collection
+    {
+        return $this->itemCharacters;
+    }
+
+    public function addItemCharacter(Item $itemCharacter): self
+    {
+        if (!$this->itemCharacters->contains($itemCharacter)) {
+            $this->itemCharacters[] = $itemCharacter;
+        }
+
+        return $this;
+    }
+
+    public function removeItemCharacter(Item $itemCharacter): self
+    {
+        $this->itemCharacters->removeElement($itemCharacter);
 
         return $this;
     }

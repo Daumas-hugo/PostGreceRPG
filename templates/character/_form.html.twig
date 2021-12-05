@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+    <a href="{{ path('classe_new') }}">Create new Class</a>
+    <a href="{{ path('race_new') }}">Create new Race</a>
+    <a href="{{ path('skill_new') }}">Create new Skill</a>
+    <a href="{{ path('item_new') }}">Create new Item</a>
+{{ form_end(form) }}
