@@ -25,13 +25,18 @@ class Classe
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=SkillClasse::class, mappedBy="classe")
+     * @ORM\ManyToMany(targetEntity=Skill::class)
      */
     private $skillClasses;
 
     public function __construct()
     {
         $this->skillClasses = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -52,31 +57,25 @@ class Classe
     }
 
     /**
-     * @return Collection|SkillClasse[]
+     * @return Collection|Skill[]
      */
     public function getSkillClasses(): Collection
     {
         return $this->skillClasses;
     }
 
-    public function addSkillClass(SkillClasse $skillClass): self
+    public function addSkillClass(Skill $skillClass): self
     {
         if (!$this->skillClasses->contains($skillClass)) {
             $this->skillClasses[] = $skillClass;
-            $skillClass->setClasse($this);
         }
 
         return $this;
     }
 
-    public function removeSkillClass(SkillClasse $skillClass): self
+    public function removeSkillClass(Skill $skillClass): self
     {
-        if ($this->skillClasses->removeElement($skillClass)) {
-            // set the owning side to null (unless already changed)
-            if ($skillClass->getClasse() === $this) {
-                $skillClass->setClasse(null);
-            }
-        }
+        $this->skillClasses->removeElement($skillClass);
 
         return $this;
     }
