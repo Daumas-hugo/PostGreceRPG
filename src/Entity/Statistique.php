@@ -28,10 +28,14 @@ class Statistique
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StatistiqueType::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length="255")
      */
     private $type;
+
+    public function __toString()
+    {
+        return $this->operator . $this->value . ' ' . $this->type;
+    }
 
     public function getId(): ?int
     {
@@ -62,12 +66,12 @@ class Statistique
         return $this;
     }
 
-    public function getType(): ?StatistiqueType
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(?StatistiqueType $type): self
+    public function setType(string $type): self
     {
         $this->type = $type;
 
