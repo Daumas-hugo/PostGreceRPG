@@ -56,12 +56,18 @@ class CharacterController extends AbstractController
      */
     public function show(Character $character): Response
     {
-        /*$conn = $this->getDoctrine()->getConnection();
-        $stmt = $conn->prepare('SELECT * FROM "myFunctionName"(:p1, :p2)');
-        $stmt->bindParam(':p1', $one);
-        $stmt->bindParam(':p2', $two);
-        $result = $stmt->executeQuery()->fetchAssociative();*/
+        /*
+        $id = $character->getId();
+        $em = $this->getDoctrine()->getManager();
 
+        $RAW_QUERY = 'SELECT calcul_combat_power('.$id.')';
+        
+        $statement = $em->getConnection()->prepare($RAW_QUERY);
+        $statement->execute();
+
+        $result = $statement->fetchAll();
+        */
+        
         return $this->render('character/show.html.twig', [
             'character' => $character,
         ]);
