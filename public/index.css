@@ -1,0 +1,157 @@
+body{
+    background-color: #62729c;
+    background-image: url(./Background.jpg);
+    background-size: 100% 100%;
+    display: flex;
+    color: white;
+    align-items: center;
+    height: 100vh;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+a:hover{
+    color: whitesmoke;
+    text-decoration: underline;
+}
+
+.glass{
+    background: rgba( 0, 0, 0, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6.5px );
+    -webkit-backdrop-filter: blur( 6.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    text-shadow: 1px 1px 2px white, 0 0 1em #9b9b9b, 0 0 0.2em #000000;
+}
+
+input{
+    background: rgba( 0, 0, 0, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6.5px );
+    -webkit-backdrop-filter: blur( 6.5px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border-radius: 5px;
+    font-size: medium;
+    padding: 10px;
+    margin-top: 3px;
+    color: white;
+}
+div.centerwrapper{
+    margin: 0 auto;
+    width: 25%;
+    height: fit-content;
+    position: relative;
+    padding: 3%;
+    text-align: center;
+}
+
+div.centerwrapper > form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+div.centerwrapper > form > label.margin20 {
+    margin-top: 20px;
+}
+
+div.centerwrapper > form > button {
+    margin-top: 20px;
+    width: 50%;
+    align-self: center;
+    padding: 5px;
+    border-radius: 25px;
+    border: none;
+    background-color: white;
+}
+
+div.centerwrapper > form > button:hover {
+    background-color: #343434;
+    text-decoration: underline;
+    color: white;
+    cursor: pointer;
+}
+
+/* TODO DATEPICKER COLOR */
+#characters{
+    width: 25%;
+    height: fit-content;
+}
+
+#characters > .character{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    border-radius: 15px;
+    height: 125px;
+}
+
+#characters > .character:hover{
+    background: rgba( 0, 0, 0, 0.4 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6.5px );
+    -webkit-backdrop-filter: blur( 6.5px );
+    cursor: pointer;
+}
+
+#characters > .character.selected{
+    border: 2px solid #ffffff55;
+}
+
+#characters > .character.add{
+    justify-content: center;
+    font-size: 120px;
+}
+
+.characterImg {
+    width: auto;
+    height: 125px;
+}
+
+.characterInfos{
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.characterInfos > div{
+    margin-right: 15px;
+}
+
+.characterInfos > div > .characterName{
+    font-size: x-large;
+}
+
+.characterInfos > div > .characterAge{
+    float: right;
+    font-size: x-large;
+}
+
+#selectionnable{
+    width: 35%;
+    height: 100%;
+}
+
+#selectionnable > #items{
+    height: 50%;
+}
+
+#selectionnable > #skills{
+    height: 50%;
+}
+
+#selectionnable > #items > h1, #selectionnable > #skills > h1{
+    margin: 0;
+    padding: 5px 0 0 15px;
+}
+
+#details{
+    width: 40%;
+    height: 100%;
+}
